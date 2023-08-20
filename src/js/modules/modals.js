@@ -2,7 +2,7 @@ import closeAllModals from "./closeAllModals";
 import calcScroll from "./calcScroll";
 
 const modals = () => {
-    const bindModal = (triggerSelector, modalSelector, closeSelector, closeClickOverlay = true) => {
+    const bindModal = (triggerSelector, modalSelector, closeSelector, removeTrigger = false) => {
         const triggers = document.querySelectorAll(triggerSelector),
               modal = document.querySelector(modalSelector),
               close = document.querySelector(closeSelector),
@@ -12,6 +12,10 @@ const modals = () => {
             trigger.addEventListener('click', e => {
                 if (e.target) {
                     e.preventDefault();
+                }
+
+                if (removeTrigger) {
+                    trigger.remove();
                 }
 
                 closeAllModals();
@@ -31,7 +35,7 @@ const modals = () => {
         });
 
         modal.addEventListener('click', e => {
-            if (e.target === modal && closeClickOverlay) {
+            if (e.target === modal) {
                 closeAllModals();
 
                 modal.style.display = 'none';
@@ -54,12 +58,15 @@ const modals = () => {
             if (!display) {
                 document.querySelector(modalSelector).style.display = 'block';
                 document.body.style.overflow = 'hidden';
+                let scroll = calcScroll(); 
+                document.body.style.marginRight = `${scroll}px`;
             }
         }, time)
     };
     
     bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
     bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
+    bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true);
     showModalByTime('.popup-consultation', 5000)
 }
 
