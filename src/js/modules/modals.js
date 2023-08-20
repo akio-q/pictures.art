@@ -59,7 +59,9 @@ const modals = () => {
                 }
             })
 
-            if (!display) {
+            if (!display && !btnPressed) {
+                closeAllModals();
+
                 document.querySelector(modalSelector).style.display = 'block';
                 document.body.style.overflow = 'hidden';
                 let scroll = calcScroll(); 
