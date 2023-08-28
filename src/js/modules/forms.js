@@ -33,12 +33,20 @@ const forms = () => {
     const clearInputs = () => {
         inputs.forEach(item => {
             item.value = '';
+        });
+        upload.forEach(item => {
+            item.previousElementSibling.textContent = "File not selected";
         })
     }
 
     upload.forEach(item => {
         item.addEventListener('input', () => {
-            console.log(item.files[0]);
+            let dots;
+            const spltitedName = item.files[0].name.split('.')
+            spltitedName[0].length > 10 ? dots = '...' : dots = '.';
+            const name = spltitedName[0].substring(0, 10) + dots + spltitedName[1];
+            
+            item.previousElementSibling.textContent = name;
         });
     });
 
