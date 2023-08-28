@@ -47,8 +47,8 @@ const forms = () => {
         item.addEventListener('input', () => {
             let dots;
             const spltitedName = item.files[0].name.split('.')
-            spltitedName[0].length > 10 ? dots = '...' : dots = '.';
-            const name = spltitedName[0].substring(0, 10) + dots + spltitedName[1];
+            spltitedName[0].length > 6 ? dots = '...' : dots = '.';
+            const name = spltitedName[0].substring(0, 6) + dots + spltitedName[1];
             
             item.previousElementSibling.textContent = name;
         });
